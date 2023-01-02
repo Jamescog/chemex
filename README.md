@@ -25,4 +25,4 @@ The tutorial has the following categories.
 |MySQL               |
 |HTML                |
 |Bootstrap           |
-|Jquery              |
+|Jquery              |3.5.1
