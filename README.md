@@ -20,9 +20,9 @@ The tutorial has the following categories.
 
 |Technoloy           | Version |              
 |  :----:            | :----:  |
-|Flask               |
-|Flask-SQLALchemy    |
+|Flask               |2.2.2
+|Flask-SQLALchemy    |3.0.2
 |MySQL               |
-|HTML                |
-|Bootstrap           |
+|HTML                |-
+|Bootstrap           |-
 |Jquery              |3.5.1
