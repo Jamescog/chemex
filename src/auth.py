@@ -2,7 +2,6 @@ from flask import (
     Blueprint,
     request,
     jsonify,
-    render_template,
 )
 from werkzeug.security import (
     generate_password_hash,
@@ -30,7 +29,9 @@ def signup():
     Handle signup requests.
     """
     # List of required keys in the request
-    required = ["firstName", "lastName", "username", "email", "password"]
+    required = ["firstName", "lastName", "username", "email", "password",
+                "nickname", "city", "teacher"
+               ]
     signup_info = request.get_json()
 
     # Check if the request is a valid JSON
@@ -48,6 +49,9 @@ def signup():
     username = signup_info["username"]
     email = signup_info["email"]
     password = signup_info["password"]
+    nickname = signup_info["nickname"]
+    city = signup_info["city"]
+    teacher = signup_info["teacher"]
 
     # Check if the password is strong enough
     if len(password) < 6:
@@ -63,12 +67,18 @@ def signup():
 
     # Hash the password
     pwd_hash = generate_password_hash(password)
+    nickname_hash = generate_password_hash(nickname)
+    city_hash = generate_password_hash(city)
+    teacher_hash= generate_password_hash(teacher)
     user = Users(
         firstName=first_name,
         lastName=last_name,
         username=username,
         email=email,
         password=pwd_hash,
+        nickname=nickname_hash,
+        city=city_hash,
+        teacher=teacher_hash
     )
     db.session.add(user)
     db.session.commit()
@@ -103,7 +113,7 @@ def login():
     user = Users.query.filter_by(email=email).first()
     if user:
         if check_password_hash(user.password, password):
-            access_token = create_access_token(identity=user.user_id)
+            access_token = create_access_token(identity=user.userId)
 
             return jsonify(
                 {
@@ -117,3 +127,47 @@ def login():
             return jsonify({"msg": "Wrong password"}), 401
     else:
         return jsonify({"msg": "No account with given email"}), 401
+
+
+@auth.post('/reset/check')
+def reset():
+    """Reset the password for user"""
+    reset_info = request.get_json()
+    email = reset_info["email"]
+    nickname = reset_info["nickname"]
+    city = reset_info["city"]
+    teacher = reset_info["teacher"]
+
+    # Check if the user is signed up in first place
+    user = Users.query.filter_by(email=email).first()
+
+    if user is None:
+        return jsonify({"msg":"No user with given email"})
+    
+    if check_password_hash(user.nickname, nickname):
+        if check_password_hash(user.city, city):
+            if check_password_hash(user.teacher, teacher):
+                return jsonify({"old":user.password})
+            else:
+                return jsonify({"msg":"Teacher not Found"}), 404
+        else:
+            return jsonify({"msg":"City not Found"}), 404
+    else:
+        return jsonify({"msg":"Nickname not Found"}), 404
+
+@auth.post('/reset/change')
+def change():
+    change_request = request.get_json()
+    old = change_request["old"]
+    new = change_request["new"],
+    email = change_request["email"]
+
+    user = Users.query.filter_by(email=email).first()
+    if old == user.password:
+        try:
+            user.password = generate_password_hash(new)
+            db.session.commit()
+            return jsonify({"msg":"Password changed successfully"})
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({"msg":"Error Changing password: {}".format(e)}), 500

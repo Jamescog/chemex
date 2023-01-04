@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="login.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <title>Document</title>
+    <title>Log in</title>
+  </head>
+  <body>
+    <section>
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong" style="border-radius: 2rem">
+              <div class="card-body p-6 text-center">
+                <h3 class="mb-5">Log in</h3>
+
+                <div class="form-outline mb-4">
+                  <input
+                    type="email"
+                    id="email"
+                    class="form-control form-control-lg"
+                    required
+                  />
+                  <label class="form-label" for="email">Email</label>
+                </div>
+                <p id="emailcheck" style="color: rgb(240, 28, 28)"></p>
+
+                <div class="form-outline mb-4">
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control form-control-lg"
+                    required
+                  />
+                  <label class="form-label" for="password">Password</label>
+                  <p id="passcheck" style="color: red"></p>
+                  <p id="error" , style="color: red"></p>
+                  <div>
+                    <button type="button" id="forgot" class="btn btn-primary">
+                      Forgot Password
+                    </button>
+                  </div>
+                </div>
+                <button
+                  id="submit"
+                  class="btn btn-primary btn-lg btn-inline"
+                  type="submit"
+                >
+                  Login
+                </button>
+
+                <hr class="my-4" />
+
+                <p id="account">You don't have account</p>
+
+                <button
+                  class="btn btn-lg btn-inline btn-primary"
+                  style="background-color: #dd4b39"
+                  type="submit"
+                  id="signup"
+                >
+                  Sign Up
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+  <script src="login.js"></script>
+</html>

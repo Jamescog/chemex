@@ -10,6 +10,13 @@ from json import dumps
 
 
 def time_formatter(createdtime):
+    """
+    Args:
+        createdtime (datetime): The time to be compared with the current time.
+
+    Returns:
+        str: A human-readable string representing the elapsed time.
+    """
     timenow = datetime.utcnow()
     time_difference = timenow - createdtime
 
@@ -27,9 +34,9 @@ def time_formatter(createdtime):
     # Remove the final ", " if it exists
     if time_string.endswith(", "):
         time_string = time_string[:-2]
-    
 
     return "{} ago".format(time_string.split(',')[0])
+
 
 
 # Create a blueprint for handle route
@@ -163,3 +170,20 @@ def single_post(id):
     data['comment_info'] = comments_info
     return jsonify({"msg": data})
 
+@renderPost.route("/search")
+def search():
+    """
+    responds users search 
+    """
+    
+
+    # Get all posts
+    posts = Posts.query.all()
+    
+    # Get all the titles, with thier postids
+    response = {}
+    for post in posts:
+        response[post.postId] = (post.title, post.description)
+    
+    return jsonify({"msg": response})
+     

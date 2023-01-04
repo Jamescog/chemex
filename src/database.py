@@ -16,6 +16,9 @@ class Users(db.Model):
             password for the user
             role - the role for ther user.
             posts - the posts created by user
+            nickname - secret question 1
+            city - secret question 2
+            teacher - secret question 3
     """
 
     userId = db.Column(db.Integer(), primary_key=True, autoincrement=True)
@@ -25,6 +28,9 @@ class Users(db.Model):
     email = db.Column(db.String(50), nullable=False, unique=True)
     password = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(30), default='Normal')
+    nickname = db.Column(db.Text(), nullable=False)
+    city = db.Column(db.Text(), nullable=False)
+    teacher = db.Column(db.Text(), nullable=False)
     createdAt = db.Column(db.DateTime(), default=datetime.utcnow())
     updatedAt= db.Column(db.DateTime(), onupdate=datetime.utcnow())
     posts = db.relationship('Posts', backref='users',lazy='dynamic')

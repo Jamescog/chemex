@@ -1,0 +1,75 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #333;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+
+.vh-100 {
+  height: 100vh;
+}
+
+.gradient-custom {
+  background-image: linear-gradient(to right, #6190e8, #a7bfe8);
+}
+
+.card-registration {
+  background-color: #fff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.form-control-lg {
+  font-size: 18px;
+  border-radius: 0;
+  border: 1px solid #e6e6e6;
+  background-color: #f7f7f7;
+  box-shadow: none;
+  padding: 15px;
+  transition: all 0.3s;
+}
+
+.form-control-lg:focus {
+  outline: none;
+  border-color: #6190e8;
+  box-shadow: 0 0 0 0.2rem rgba(97, 144, 232, 0.25);
+}
+
+.form-label {
+  font-size: 16px;
+  font-weight: 400;
+  position: absolute;
+  pointer-events: none;
+  left: 15px;
+  top: 15px;
+  color: #aaa;
+  transition: 0.2s;
+}
+
+.form-control-lg:placeholder-shown + .form-label {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+}
+
+.form-control-lg:focus::placeholder {
+  color: transparent;
+}
+
+button[type="submit"] {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #6190e8;
+  border: none;
+  border-radius: 4px;
+  padding: 15px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #4f77c9;
+}

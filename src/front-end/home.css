@@ -96,3 +96,12 @@ button[type="submit"] {
   z-index: 2;
   transform: skew(10deg) scale(1.5);
 }
+
+#fixedDiv {
+  background-color: #686d72;
+  position: fixed;
+  top: 19%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 10;
+}
