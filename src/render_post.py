@@ -9,33 +9,10 @@ from datetime import datetime
 from json import dumps
 
 
-def time_formatter(createdtime):
-    """
-    Args:
-        createdtime (datetime): The time to be compared with the current time.
+def time_formatter(utc):
+  date_str = utc.strftime("%b %d, %Y %H:%M")
+  return date_str
 
-    Returns:
-        str: A human-readable string representing the elapsed time.
-    """
-    timenow = datetime.utcnow()
-    time_difference = timenow - createdtime
-
-    # Build a string representing the time difference, only including non-zero components
-    time_string = ""
-    if time_difference.days > 0:
-        time_string += f"{time_difference.days} days, "
-    if time_difference.seconds // 3600 > 0:
-        time_string += f"{time_difference.seconds // 3600} hours, "
-    if time_difference.seconds // 60 % 60 > 0:
-        time_string += f"{time_difference.seconds // 60 % 60} minutes, "
-    if time_difference.seconds % 60 > 0:
-        time_string += f"{time_difference.seconds % 60} seconds"
-
-    # Remove the final ", " if it exists
-    if time_string.endswith(", "):
-        time_string = time_string[:-2]
-
-    return "{} ago".format(time_string.split(',')[0])
 
 
 
@@ -186,4 +163,23 @@ def search():
         response[post.postId] = (post.title, post.description)
     
     return jsonify({"msg": response})
+
+@renderPost.route("/category/<category>")
+def sendcategory(category):
+    """
+    send tutorials based on category
+    """
+    posts = Posts.query.where(Posts.category == category).all()
+    response = {}
+    for post in posts:
+        user = Users.query.filter_by(userId=post.userId).first().username
+        about = {}
+        about["id"] = post.postId 
+        about["title"] = post.title
+        about["description"] = post.description
+        about['author'] = user
+        about["duration"] = time_formatter(post.createdAt)
+        response[post.postId] = about
+    return response
+
      

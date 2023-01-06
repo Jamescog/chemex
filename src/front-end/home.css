@@ -18,62 +18,9 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-#calltoAction:hover {
-  background-color: rgb(15, 83, 83);
+.main-menu {
+  margin-top: 10px;
 }
-
-.intro {
-  background-color: #f8f8f8;
-  padding: 80px 0;
-  text-align: center;
-}
-
-.intro h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.intro p {
-  font-size: 1.2em;
-  line-height: 1.5;
-  margin-bottom: 40px;
-}
-
-.intro ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.intro ul li {
-  font-size: 1.1em;
-  margin-bottom: 10px;
-}
-
-.intro .button {
-  display: inline-block;
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  font-size: 1em;
-  font-weight: bold;
-  transition: all 0.2s ease;
-}
-
-.intro .button:hover {
-  background-color: #444;
-  cursor: pointer;
-}
-
-.card-img-top {
-  width: 100%;
-  height: 30;
-  object-fit: contain;
-}
-
 .content {
   width: 80%;
   margin: auto;
@@ -87,12 +34,11 @@ button[type="submit"] {
 .text-muted {
   font-size: x-small;
 }
-
-.card {
-  z-index: 1;
+.content .card {
+  transition: 0.5s;
 }
 
-.card:hover {
+.content .card:hover {
   z-index: 2;
   transform: skew(10deg) scale(1.5);
 }
@@ -104,4 +50,94 @@ button[type="submit"] {
   left: 50%;
   transform: translate(-50%, 0);
   z-index: 10;
+}
+
+.searchresult {
+  position: absolute;
+  z-index: 1;
+}
+.searchresult div {
+  background-color: rgb(172, 172, 139);
+  color: black;
+  font-size: 11px;
+  border: 1px solid black;
+}
+
+.navbar {
+  background-color: #ffffff; /* White background color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a box shadow */
+}
+
+.navbar a {
+  color: #5a5a5a; /* Gray text color */
+  font-weight: 500; /* Semibold font weight */
+}
+
+.navbar a:hover {
+  color: #007bff; /* Blue hover color */
+}
+
+.navbar .active {
+  background-color: #007bff; /* Blue active color */
+  color: #ffffff; /* White active text color */
+}
+
+.navbar .searchbar {
+  border-radius: 25px; /* Round search bar corners */
+}
+
+.navbar .btn {
+  border-radius: 25px; /* Round button corners */
+}
+
+#contact .card {
+  background-color: #ffffff; /* White card background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a box shadow */
+  transform: 0.7s;
+}
+
+#contact .card:hover {
+  z-index: 2;
+  transform: scale(1.4) rotate(7deg);
+  transform: 1.5s;
+}
+
+#contact.card h4 {
+  color: #5a5a5a; /* Gray text color */
+  font-weight: 500; /* Semibold font weight */
+}
+
+#contact .card a {
+  color: #007bff; /* Blue link color */
+}
+
+.card a:hover {
+  color: #0056b3; /* Darker blue hover color */
+}
+.btn {
+  border-radius: 25px; /* Round button corners */
+}
+
+#contact .btn-primary {
+  background-color: #3b5998; /* Facebook blue color */
+  border-color: #3b5998; /* Facebook blue color */
+  color: #ffffff; /* White text color */
+}
+
+#contact .btn-info {
+  background-color: #1da1f2; /* Twitter blue color */
+  border-color: #1da1f2; /* Twitter blue color */
+  color: #ffffff; /* White text color */
+}
+
+#contact .btn-danger {
+  background-color: #cc181e; /* YouTube red color */
+  border-color: #cc181e; /* YouTube red color */
+  color: #ffffff; /* White text color */
+}
+
+#contact .btn-success {
+  background-color: #e1306c; /* Instagram pink color */
+  border-color: #e1306c; /* Instagram pink color */
+  color: #ffffff; /* White text color */
 }

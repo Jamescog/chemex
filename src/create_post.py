@@ -9,7 +9,6 @@ import uuid
 import re
 import os
 import subprocess
-import bleach
 from bs4 import BeautifulSoup
 
 # Create a blueprint for the create route
@@ -27,7 +26,6 @@ def create():
     category = request.form['category']
     title = request.form['title']
     description = request.form['description']
-    
     # Validate form data
     if file.filename == '':
         return 'No file selected'
@@ -48,7 +46,6 @@ def create():
     # Define the html variable before the try block
     html = ""
     postno = len(Posts.query.all()) + 1
-
     # Convert the MS Word document to HTML and extract and rename images from it
     try:
         result = subprocess.run(
@@ -72,10 +69,6 @@ def create():
 
     # Convert the BeautifulSoup object back to HTML
     html = str(soup)
-
-
-
-
     # Parse the HTML content using BeautifulSoup
     soup = BeautifulSoup(html, 'html.parser')
     
@@ -83,12 +76,13 @@ def create():
         if element.name in ['script', 'iframe', 'base', 'form', 'object']:
             element.decompose()
     body = str(soup.body)
-
     
     try:
         post  = Posts(userId=userId, body=body, title=title, category=category, description=description)
         db.session.add(post)
         db.session.commit()
     except Exception as e:
-        return jsonify({"msg":"Error saving post to database: {}".format(e)}), 500
+        db.session.rollback()
+        print(e)
+        return jsonify({"msg":"Error saving post to database: {}".format(e)}), 400
     return jsonify({"msg":"Post created successfully!"}), 201

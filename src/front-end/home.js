@@ -22,49 +22,24 @@ $(document).ready(function () {
       $(".searchresult").append(newDiv);
     }
   }
-
-  // get recent posts from the server
+  // Send an AJAX GET request to the API server
   $.ajax({
     type: "GET",
     url: "http://127.0.0.1:5000/api/v1/recent",
     success: function (response) {
-      // This function will be executed if the request succeeds
-      let obj = Object.values(response.msg);
+      // Process the response from the server
+      let cards = $(".content .card");
+      let data = Object.values(response.msg);
+      for (let i = 0; i < cards.length; i++) {
+        let card = $(cards[i]);
+        card.attr("postId", data[i].postId);
+        card.find("h5").text(data[i].category);
+        card.find("p").text(data[i].title);
+        card.find("#duration").text(data[i].duration);
+      }
 
-      // Loop through all cards and add postId attribute
-      let num = 0;
-      $(".card").each(function () {
-        let postId = obj[num].postId;
-        $(this).attr("postId", postId);
-        num += 1;
-      });
-
-      // Loop through all the cards and fill the category
-      num = 0;
-      $(".card h5").each(function () {
-        let category = obj[num].category;
-        $(this).text(category);
-        num += 1;
-      });
-
-      // Loop through all the cards and fill the title
-      num = 0;
-      $(".card p").each(function () {
-        let desc = obj[num].title;
-        $(this).text(desc);
-        num += 1;
-      });
-
-      // Loop through all the cards and fill the time
-      num = 0;
-      $(".card #duration").each(function () {
-        let duraton = obj[num].duration;
-        $(this).text(duraton);
-        num += 1;
-      });
-
-      // Add a "Read More" button to the card when the user hovers over it
-      $(".card").hover(
+      // Add a "Read More" button to each card when the user hovers over it
+      $(".content .card").hover(
         function () {
           $(this)
             .find(".card-footer")
@@ -80,7 +55,7 @@ $(document).ready(function () {
     },
     error: function () {
       // This function will be executed if the request fails
-      // do something
+      // Do something here
     },
   });
 
@@ -125,16 +100,25 @@ $(document).ready(function () {
         }
 
         //bind event listner
-        $(".searchbar").on("keyup", function () {
+        let keystrokeCount = 0;
+
+        $(".searchbar").on("keydown", function () {
+          // Increment the keystroke counter
+          keystrokeCount++;
+
           // Get the input value
           let input = $(this).val();
 
-          // Store the input value in a variable or data structure
-          if (input.length > 3) {
+          // Search the dictionary and display the results if the keystroke count is 3 or more
+          if (input.length >= 3) {
             let searchDictionaryresult = searchDictionary(input);
             if (searchDictionaryresult.length > 0) {
               createAnchorList(searchDictionaryresult);
+            } else {
+              $(".searchresult").empty();
             }
+          } else {
+            $(".searchresult").empty();
           }
         });
       },
@@ -143,31 +127,11 @@ $(document).ready(function () {
       },
     });
   });
-  // var list = [
-  //   [
-  //     $("<a>", { href: "url1", text: "link1" }),
-  //     $("<a>", { href: "url2", text: "link2" }),
-  //   ],
-  //   [
-  //     $("<a>", { href: "url3", text: "link3" }),
-  //     $("<a>", { href: "url4", text: "link4" }),
-  //   ],
-  // ];
+  $(".redirect").click(function () {
+    // get the text of the clicked menu item
+    let text = $(this).text();
 
-  // $(".searchresult").click(function () {
-  //   // Loop through the list of lists
-  //   $.each(list, function (index, sublist) {
-  //     // Create a div element to hold the sublist of anchor elements
-  //     var div = $("<div>");
-
-  //     // Loop through the sublist of anchor elements
-  //     $.each(sublist, function (index, element) {
-  //       // Append the anchor element to the div element
-  //       div.append(element);
-  //     });
-
-  //     // Append the div element to the searchresult div
-  //     $(".searchresult").append(div);
-  //   });
-  // });
+    // redirect to the category page and pass the text as a parameter
+    window.location.href = `category.html?category=${text}`;
+  });
 });
