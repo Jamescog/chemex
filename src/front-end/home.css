@@ -93,12 +93,12 @@ button[type="submit"] {
 #contact .card {
   background-color: #ffffff; /* White card background */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a box shadow */
-  transform: 0.7s;
+  transform: 1.1s;
 }
 
 #contact .card:hover {
   z-index: 2;
-  transform: scale(1.4) rotate(7deg);
+  transform: scale(1.4);
   transform: 1.5s;
 }
 

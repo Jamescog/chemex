@@ -53,6 +53,7 @@ def create():
             capture_output=True, text=True, check=True
         )
         html = result.stdout
+        os.remove("temp.docx")
     except subprocess.CalledProcessError as e:
         print(e)
         return jsonify({"msg":"Error converting Word document to HTML: {}".format(e)}), 500

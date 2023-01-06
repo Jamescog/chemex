@@ -1,6 +1,5 @@
 $(document).ready(function () {
   // This function will be executed when the document is ready
-
   function createAnchorList(dictList) {
     // Clear the div with class searchresult
     $(".searchresult").empty();
@@ -8,11 +7,9 @@ $(document).ready(function () {
     for (let i = 0; i < dictList.length; i++) {
       // Get the current dictionary
       let dict = dictList[i];
-
       // Get the key and value of the dictionary
       let key = dict["key"];
       let value = dict["value"];
-
       // Create a new div with the text and attribute
       var newDiv = $("<div>", {
         text: value,
@@ -22,6 +19,15 @@ $(document).ready(function () {
       $(".searchresult").append(newDiv);
     }
   }
+
+  $(".redirect").click(function () {
+    // get the text of the clicked menu item
+    let text = $(this).text();
+
+    // redirect to the category page and pass the text as a parameter
+    window.location.href = `category.html?category=${text}`;
+  });
+
   // Send an AJAX GET request to the API server
   $.ajax({
     type: "GET",
@@ -37,7 +43,6 @@ $(document).ready(function () {
         card.find("p").text(data[i].title);
         card.find("#duration").text(data[i].duration);
       }
-
       // Add a "Read More" button to each card when the user hovers over it
       $(".content .card").hover(
         function () {
@@ -58,7 +63,6 @@ $(document).ready(function () {
       // Do something here
     },
   });
-
   // Add a click event handler for the "Read More" button
   $(document).on("click", "#Read", function () {
     let card = $(this).closest(".card");
@@ -66,7 +70,6 @@ $(document).ready(function () {
     let userId = 2;
     window.location.href = "post.html?postId=" + postId + "&userId=" + userId;
   });
-
   $(".searchbar").one("focusin", function () {
     $.ajax({
       type: "GET",
@@ -74,17 +77,14 @@ $(document).ready(function () {
       success: function (response) {
         // get the response of the server
         let dictionary = response.msg;
-
         //add function that handle the searching
         function searchDictionary(string) {
           // Create an empty list to store the search results
           let searchResults = [];
-
           // Loop through all the keys in the dictionary
           for (let key in dictionary) {
             // Get the second value of the tuple (the search string)
             let searchString = dictionary[key][1];
-
             // Check if the search string contains the input string
             if (searchString.includes(string)) {
               // Add the key and the first value of the tuple to the search results list
@@ -94,44 +94,37 @@ $(document).ready(function () {
               });
             }
           }
-
           // Return the list of search results
           return searchResults;
         }
-
         //bind event listner
         let keystrokeCount = 0;
-
         $(".searchbar").on("keydown", function () {
           // Increment the keystroke counter
           keystrokeCount++;
-
           // Get the input value
           let input = $(this).val();
-
-          // Search the dictionary and display the results if the keystroke count is 3 or more
-          if (input.length >= 3) {
-            let searchDictionaryresult = searchDictionary(input);
-            if (searchDictionaryresult.length > 0) {
-              createAnchorList(searchDictionaryresult);
-            } else {
-              $(".searchresult").empty();
-            }
-          } else {
+          // Check if the input value is empty
+          if (input == "") {
+            // Clear the search result div
             $(".searchresult").empty();
+            return;
+          }
+          // Check if the keystroke counter is greater than or equal to 2
+          if (keystrokeCount >= 2) {
+            // Reset the keystroke counter
+            keystrokeCount = 0;
+            // Search the dictionary
+            let searchResults = searchDictionary(input);
+            // Create a list of anchors from the search results
+            createAnchorList(searchResults);
           }
         });
       },
-      error: function (error) {
-        console.log(error.msg);
+      error: function () {
+        // This function will be executed if the request fails
+        // Do something here
       },
     });
-  });
-  $(".redirect").click(function () {
-    // get the text of the clicked menu item
-    let text = $(this).text();
-
-    // redirect to the category page and pass the text as a parameter
-    window.location.href = `category.html?category=${text}`;
   });
 });
