@@ -3,6 +3,7 @@ Handles user actions on post
 """
 
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import get_jwt_identity, jwt_required
 from .database import db,Users, Posts, Replies, Comments
 
 
@@ -12,6 +13,7 @@ userActions = Blueprint('useraction', __name__, url_prefix='/api/v1/handle')
 @userActions.route('/likes/<int:postId>', methods=['POST'])
 def handleLikes(postId):
     """
+    Handles user action on posts
     """
     try:
         # Get the JSON data from the request
@@ -63,6 +65,7 @@ def handleLikes(postId):
 
 
 @userActions.route('/comment/<int:postId>', methods=["POST"])
+@jwt_required()
 def handleComment(postId: int) -> dict:
     """
     This function handles the creation of a new comment for a given post.
@@ -94,22 +97,16 @@ def handleComment(postId: int) -> dict:
         return {"error": "Invalid JSON in request body"}, 400
     
     # Check that the required fields are present in the request body
-    required = ["body", "userId"]
-    for r in required:
-        if r not in user_input.keys():
-            return {"error": "Missing {} field in request body".format(r)}, 400
-    
-    # Validate the userId field
-    if not isinstance(user_input['userId'], int):
-        return {"error": "Invalid userId in request body"}, 400
+    if "body" not in user_input.keys():
+        return {"error": "Missing body field in request body"}, 400
     
     # Check that the user with the given userId exists
-    user = Users.query.filter_by(userId=user_input['userId']).first()
+    user = Users.query.filter_by(userId=get_jwt_identity()).first()
     if user is None:
         return {"error": "User with given userId does not exist"}, 400
     
     # Create a new Comment object
-    comment = Comments(postId=postId, body=user_input['body'], userId=user_input['userId'])
+    comment = Comments(postId=postId, body=user_input['body'], userId=get_jwt_identity())
     
     # Add the comment to the database and commit the changes
     try:
@@ -146,7 +143,7 @@ def editComment(postId):
         return jsonify({"msg":"Not a valid JSON"}), 400
     
     # Check if all required fields are present in the request data
-    required = ["commentId", "userId", "body"]
+    required = ["commentId","body"]
     for r in required:
         if r not in user_input.keys():
             return jsonify({"msg":"Missing {}".format(r)}), 400
@@ -157,7 +154,7 @@ def editComment(postId):
         return jsonify({"msg":"Comment Not Found"}), 404
     
     # Check if the user has permission to edit the comment
-    if comment.userId != user_input['userId']:
+    if comment.userId != get_jwt_identity():
         return jsonify({"msg":"You're not an author of the comment"}), 403
     
     # Update the comment

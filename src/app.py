@@ -26,7 +26,7 @@ def create_app(test_config=None):
             dbname="",
             SECRET_KEY=environ.get("SECRET_KEY"),
             SQLALCHEMY_DATABASE_URI=environ.get("SQLALCHEMY_DATABASE_URI"),
-            JWT_ACCESS_TOKEN_EXPIRES=timedelta(hours=1),
+            JWT_ACCESS_TOKEN_EXPIRES=timedelta(minutes=1),
             JWT_SECRET_KEY=environ.get("JWT_SECRET_KEY")
         )
     else:

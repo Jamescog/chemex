@@ -14,7 +14,9 @@ from bs4 import BeautifulSoup
 # Create a blueprint for the create route
 createPost = Blueprint("create", __name__, url_prefix="/api/v1")
 
+
 @createPost.route("/create", methods=["POST"])
+@jwt_required()
 def create():
     """Create new post
         
@@ -36,7 +38,7 @@ def create():
     if not description:
         return 'No description provided'
 
-    userId= 1
+    userId= get_jwt_identity()
     if Users.query.filter_by(userId=userId).first() is None:
         return jsonify({"msg":"No user Found"}), 400
 
@@ -55,7 +57,6 @@ def create():
         html = result.stdout
         os.remove("temp.docx")
     except subprocess.CalledProcessError as e:
-        print(e)
         return jsonify({"msg":"Error converting Word document to HTML: {}".format(e)}), 500
 
     # Update image names in the HTML document
@@ -84,6 +85,5 @@ def create():
         db.session.commit()
     except Exception as e:
         db.session.rollback()
-        print(e)
-        return jsonify({"msg":"Error saving post to database: {}".format(e)}), 400
+        return jsonify({"msg":"Error saving post to database"}), 400
     return jsonify({"msg":"Post created successfully!"}), 201

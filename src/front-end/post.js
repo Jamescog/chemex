@@ -2,7 +2,8 @@ $(document).ready(function () {
   // Get data from caller
   let params = new URLSearchParams(location.search);
   let postId = params.get("postId");
-  let userId = params.get("userId");
+  let accessToken = localStorage.getItem("Authorization");
+
   //function that applies replies
   function appnedReplies(replies) {
     $.each(replies, function (index, reply) {
@@ -106,20 +107,27 @@ $(document).ready(function () {
   $("#commentSubmit").click(function (event) {
     event.preventDefault();
     let comment = $("#newComment").val();
-    data = { body: comment, userId: 1 };
+    data = { body: comment };
     if (comment.length < 5) {
       $("#shortComment").text("The comment is too short");
     } else {
       $.ajax({
         type: "POST",
         url: "http://127.0.0.1:5000/api/v1/handle/comment/" + postId,
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", accessToken);
+        },
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data),
         success: function (response) {
-          //do something
+          alert("Your comment added successfully");
         },
         error: function (response) {
-          //do something
+          if (response.responseJSON.msg == "Token has expired") {
+            alert("Your login has expired");
+            window.location =
+              "/login?next=" + encodeURIComponent(window.location);
+          }
         },
       });
     }
