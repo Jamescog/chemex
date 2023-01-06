@@ -5,11 +5,11 @@ from flask_jwt_extended import JWTManager
 from datetime import timedelta
 
 # import blueprint modules
-from .auth import auth
-from .create_post import createPost
-from .render_post import renderPost
-from .handle_posts import userActions
-from .database import db
+from src.auth import auth
+from src.create_post import createPost
+from src.render_post import renderPost
+from src.handle_posts import userActions
+from src.database import db
 
 
 def create_app(test_config=None):
