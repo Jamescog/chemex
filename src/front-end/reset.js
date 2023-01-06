@@ -18,7 +18,7 @@ $(document).ready(function () {
       },
       error: function (error) {
         alert(error.responseJSON.msg);
-        window.location.href = "home.html";
+        window.location.href = "index.html";
       },
     });
   });
