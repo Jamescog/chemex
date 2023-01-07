@@ -4,7 +4,7 @@ Handles user actions on post
 
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import get_jwt_identity, jwt_required
-from .database import db,Users, Posts, Replies, Comments
+from database import db,Users, Posts, Replies, Comments
 
 
 userActions = Blueprint('useraction', __name__, url_prefix='/api/v1/handle')
