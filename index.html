@@ -1,1 +1,323 @@
 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="home.css" />
+    <title>ChemEX-Home</title>
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+      integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">ChemEX</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle available"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Available tutorials
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item redirect" href="#"
+                >Reaction Engineering</a
+              >
+              <a class="dropdown-item redirect" href="#">Thermodynamics</a>
+              <a class="dropdown-item redirect" href="#">Fluid Mechanics</a>
+              <a class="dropdown-item redirect" href="#"
+                >Material Engineering</a
+              >
+              <a class="dropdown-item redirect" href="#">Biotechnology</a>
+              <a class="dropdown-item redirect" href="#">Chemistry</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#recent">Recent tutorials</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact us</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input
+            class="form-control mr-sm-2 searchbar"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
+    </nav>
+
+    <!--Fill the search bar-->
+    <div class="container searchresult"></div>
+    <!-- Background image -->
+    <div class="herosec h-25" style="height: 25%">
+      <div
+        class="bg-image calling"
+        style="background-image: url(images/free.jpg)"
+      >
+        <div class="mask"></div>
+        <div
+          class="text-center p-5 h-100 d-flex flex-column justify-content-center align-items-center"
+        >
+          <h1 class="mb-3 text-white">ChemEX</h1>
+          <h4 class="mb-3 text-white">Chemical Engineering Made Easy</h4>
+          <div id="signup" class="my-3">
+            <h2 class="mb-3 text-white">Join our community of contributors</h2>
+            <p>
+              Are you a chemical engineering student or professional looking to
+              share your knowledge and expertise with others? We welcome you to
+              become a contributor to our tutorial site! By signing up, you'll
+              be able to create and share your own tutorials with the community.
+            </p>
+            <a
+              href="signup.html"
+              class="btn btn-outline-light btn-lg"
+              role="button"
+              style="color: rgb(18, 19, 13); background-color: blueviolet"
+              >Become Our Family</a
+            >
+          </div>
+          <div id="login" class="my-3">
+            <h2 class="mb-3 text-white">Start publishing your tutorials</h2>
+            <a
+              href="create_post.html"
+              class="btn btn-outline-light btn-lg"
+              role="button"
+              style="color: rgb(18, 19, 13); background-color: blueviolet"
+              >Start Publishing</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-menu">
+      <div class="content">
+        <h1 id="recent">Recent Tutorials</h1>
+        <div class="card-deck mt-4 mb-4">
+          <div class="card">
+            <img
+              src="https://t4.ftcdn.net/jpg/00/46/59/51/360_F_46595127_GsAfIBjyRw4b8GWGEPmju5XN4dGpJd1Q.jpg"
+              class="card-img-top img-fluid"
+              width="612"
+              height="408"
+              alt="Image 1"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card 1</h5>
+              <p class="card-text">
+                Some text<a id="readmore1" href="">...Read More</a>
+              </p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted"
+                >Last updated <span id="duration"></span
+              ></small>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="https://media.istockphoto.com/id/655439586/photo/chemical-tube-with-reaction-formula.jpg?s=612x612&w=0&k=20&c=XGRd99CMwkTzf7e5pP_nLZWd5mADQTodlelcANKDbDk="
+              class="card-img-top img-fluid"
+              width="612"
+              height="408"
+              alt="Image 2"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card 2</h5>
+              <p class="card-text">Some text</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted"
+                >Last updated <span id="duration"></span
+              ></small>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="https://media.istockphoto.com/id/482880187/photo/modern-high-tech-cnc-metal-milling-machine.jpg?s=612x612&w=is&k=20&c=uQOHxCgGKn5h261tnyp3osx-sIxUV79_ArMdRw9SIs0="
+              class="card-img-top img-fluid"
+              width="612"
+              height="500"
+              alt="Image 3"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card 3</h5>
+              <p class="card-text">Some text</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted"
+                >Last updated <span id="duration"></span
+              ></small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="card-deck mt-4 mb-4">
+          <div class="card">
+            <img
+              src="https://media.istockphoto.com/id/1042415034/photo/young-industry-employees-checking-production-line-in-wire-warehouse.jpg?s=1024x1024&w=is&k=20&c=L5wO-mtk31LAnrRJpBC_lLLXpFNcRR0e_VoZPrw0JoI="
+              class="card-img-top img-fluid"
+              width="612"
+              height="408"
+              alt="Image 4"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card 4</h5>
+              <p class="card-text">Some text</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted"
+                >Last updated <span id="duration"></span
+              ></small>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="https://media.istockphoto.com/id/1039705312/photo/group-of-industrial-workers-in-a-refinery-oil-processing-equipment-and-machinery.jpg?s=612x612&w=is&k=20&c=twyWtK8y-AEjuePiI14ZlAIn0ktxbhOZY_N8ywiTZUg="
+              class="card-img-top img-fluid"
+              width="612"
+              height="408"
+              alt="Image 2"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card 5</h5>
+              <p class="card-text">Some text</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted"
+                >Last updated <span id="duration"></span
+              ></small>
+            </div>
+          </div>
+          <div class="card">
+            <img
+              src="https://media.istockphoto.com/id/607493288/photo/entropy-or-enthalpy-concept-3d-rendering.jpg?s=612x612&w=is&k=20&c=ERxkYz_e9F9WSC06oWdIHU85ucUijCRVq2FZ8UHJPcs="
+              class="card-img-top img-fluid"
+              width="612"
+              height="500"
+              alt="Image 3"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Card 6</h5>
+              <p class="card-text">Some text</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted"
+                >Last updated <span id="duration"></span
+              ></small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="contact" class="bg-light py-5">
+      <div class="container">
+        <h2 class="text-center mb-5">Contact Us</h2>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h4 class="card-title">
+                  <i class="fas fa-envelope"></i> Email
+                </h4>
+                <a href="yalembrhankelayneh@gmail.com"> Yalembrhan Kelayneh</a>
+                <br />
+                <a href="jamescog72@gmail.com">Yaekob Demisse</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h4 class="card-title"><i class="fas fa-phone"></i> Phone</h4>
+                <p class="card-text">(+251) 97664-0278</p>
+                <p class="card-text">(123) 456-7890</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h4 class="card-title">
+                  <i class="fas fa-map-marker-alt"></i> Address
+                </h4>
+                <p class="card-text">Yeka, Addis Ababa Ethiopia</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-md-6 mb-3">
+            <a href="#" class="btn btn-primary btn-block"
+              ><i class="fab fa-facebook-f"></i> Like us on Facebook</a
+            >
+          </div>
+          <div class="col-md-6 mb-3">
+            <a href="#" class="btn btn-info btn-block"
+              ><i class="fab fa-twitter"></i> Follow us on Twitter</a
+            >
+          </div>
+          <div class="col-md-6 mb-3">
+            <a href="#" class="btn btn-danger btn-block"
+              ><i class="fab fa-youtube"></i> Subscribe on YouTube</a
+            >
+          </div>
+          <div class="col-md-6 mb-3">
+            <a href="#" class="btn btn-success btn-block"
+              ><i class="fab fa-instagram"></i> Follow us on Instagram</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--Javascript-->
+    <script src="home.js"></script>
+  </body>
+</html>
