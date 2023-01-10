@@ -26,3 +26,7 @@ The tutorial has the following categories.
 |HTML                |-
 |Bootstrap           |-
 |Jquery              |3.5.1
+Authors
+yaekob demisse 
+yalembirhan kelayneh
+you can find us on yalem123 github account for yalembrhan kelayneh and Jamescog for yeakob Demissie
