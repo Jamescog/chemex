@@ -3,7 +3,7 @@ Respond for request from posts
 """
 
 from flask import Blueprint, jsonify, request
-from database import db, Posts, Users, Comments, Replies
+from .database import db, Posts, Users, Comments, Replies
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from datetime import datetime
 from json import dumps

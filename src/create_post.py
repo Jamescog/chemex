@@ -3,7 +3,7 @@ Handles the creation of post(tutorial)
 """
 
 from flask import Blueprint, jsonify, request
-from database import db, Posts, Users, Comments, Replies
+from .database import db, Posts, Users, Comments, Replies
 from flask_jwt_extended import get_jwt_identity, jwt_required
 import uuid
 import re
